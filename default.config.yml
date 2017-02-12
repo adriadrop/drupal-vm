@@ -48,28 +48,12 @@ drupalvm_database: mysql
 # Required Drupal settings.
 drupal_db_user: drupal
 drupal_db_password: drupal
+drupal_major_version: 7
 
-# Set this to 'false' if you are using a different site deployment strategy and
-# would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
-build_makefile: false
-drush_makefile_path: "{{ config_dir }}/drupal.make.yml"
-drush_make_options: "--no-gitinfofile"
-
-# Set 'build_makefile' to 'false' and this to 'true' if you are using a
-# composer based site deployment strategy.
-build_composer: false
-
-# Set this to 'true' and 'build_makefile', 'build_composer' to 'false' if you
-# are using Composer's create-project as a site deployment strategy.
-build_composer_project: false
-
-# Set this to 'false' if you don't need to install drupal (using the drupal_*
-# settings below), but instead copy down a database (e.g. using drush sql-sync).
-install_site: false
 
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
-configure_drush_aliases: true
+configure_drush_aliases: false
 
 # Helper variable to configure the PHP-FPM connection for each Apache
 # VirtualHost in the `apache_vhosts` list.
@@ -82,10 +66,15 @@ apache_vhost_php_fpm_parameters: |
 # multisite deployments, you can point multiple servernames at one documentroot.
 # View the geerlingguy.apache Ansible Role README for more options.
 apache_vhosts:
-  - servername: "{{ drupal_domain }}"
-    serveralias: "www.{{ drupal_domain }}"
-    documentroot: "{{ drupal_core_path }}"
+  - servername: "lelo.vm "
+    serveralias: "www.lelo.vm"
+    documentroot: "/var/www/lelovm/lelo"
     extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"
+
+  - servername: "foreo.vm "
+    serveralias: "www.foreo.vm"
+    documentroot: "/var/www/lelovm/foreo"
+    extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"    
 
   - servername: "adminer.{{ vagrant_hostname }}"
     documentroot: "{{ adminer_install_dir }}"
