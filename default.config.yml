@@ -45,6 +45,10 @@ drupalvm_webserver: nginx
 # The database system to use. Can be either 'mysql' or 'pgsql'.
 drupalvm_database: mysql
 
+# Required Drupal settings.
+drupal_db_user: drupal
+drupal_db_password: drupal
+
 # Set this to 'false' if you are using a different site deployment strategy and
 # would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
 build_makefile: false
@@ -142,15 +146,20 @@ nginx_ppa_use: true
 
 # MySQL databases and users.
 mysql_databases:
-  - name: "{{ drupal_db_name }}"
+  - name: "lelo_vm"
     encoding: utf8mb4
     collation: utf8mb4_general_ci
+
+  - name: "foreo_vm"
+    encoding: utf8mb4
+    collation: utf8mb4_general_ci    
 
 mysql_users:
   - name: "{{ drupal_db_user }}"
     host: "%"
     password: "{{ drupal_db_password }}"
-    priv: "{{ drupal_db_name }}.*:ALL"
+    priv: "lelo_vm.*:ALL"
+    priv: "foreo_vm.*:ALL"
 
 # PostgreSQL databases and users.
 postgresql_databases:
@@ -288,7 +297,7 @@ php_xdebug_cli_enable: 1
 php_xdebug_remote_enable: 1
 php_xdebug_remote_connect_back: 1
 # Use PHPSTORM for PHPStorm, sublime.xdebug for Sublime Text.
-php_xdebug_idekey: PHPSTORM
+php_xdebug_idekey: sublime.xdebug
 php_xdebug_max_nesting_level: 256
 
 # Solr Configuration (if enabled above).
