@@ -24,7 +24,7 @@ vagrant_synced_folders:
   # any of the build_* settings are 'true'. By default the folder is set to
   # the drupal-vm folder.
   - local_path: .
-    destination: /var/www/
+    destination: /var/www/lelovm
     type: nfs
     create: true
 
@@ -37,10 +37,10 @@ drupalvm_vagrant_version_min: '1.8.6'
 drupalvm_ansible_version_min: '2.2'
 
 # Force use of ansible_local provisioner, even if Ansible is installed on host.
-force_ansible_local: false
+force_ansible_local: true
 
 # The web server software to use. Can be either 'apache' or 'nginx'.
-drupalvm_webserver: apache
+drupalvm_webserver: nginx
 
 # The database system to use. Can be either 'mysql' or 'pgsql'.
 drupalvm_database: mysql
@@ -54,42 +54,14 @@ drush_make_options: "--no-gitinfofile"
 # Set 'build_makefile' to 'false' and this to 'true' if you are using a
 # composer based site deployment strategy.
 build_composer: false
-drupal_composer_path: "{{ config_dir }}/drupal.composer.json"
-drupal_composer_install_dir: "/var/www/drupalvm/drupal"
-drupal_composer_dependencies:
-  - "drupal/devel:1.x-dev"
 
 # Set this to 'true' and 'build_makefile', 'build_composer' to 'false' if you
 # are using Composer's create-project as a site deployment strategy.
 build_composer_project: false
-drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
-drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 
 # Set this to 'false' if you don't need to install drupal (using the drupal_*
 # settings below), but instead copy down a database (e.g. using drush sql-sync).
 install_site: false
-
-# Required Drupal settings.
-drupal_core_path: "{{ drupal_composer_install_dir }}/web"
-drupal_db_user: drupal
-drupal_db_password: drupal
-drupal_db_name: drupal
-
-# Settings for installing a Drupal site if 'install_site:' is 'true'.
-drupal_major_version: 8
-drupal_domain: "{{ vagrant_hostname }}"
-drupal_site_name: "Drupal"
-drupal_install_profile: standard
-drupal_enable_modules: [ 'devel' ]
-drupal_account_name: admin
-drupal_account_pass: admin
-
-# Additional arguments or options to pass to `drush site-install`.
-drupal_site_install_extra_args: []
-
-# Cron jobs are added to the vagrant user's crontab. Keys include name
-# (required), minute, hour, day, weekday, month, job (required), and state.
-drupalvm_cron_jobs: []
 
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
@@ -141,8 +113,12 @@ apache_mods_enabled:
 # here. Set the 'is_php' property for document roots that contain PHP apps like
 # Drupal.
 nginx_hosts:
-  - server_name: "{{ drupal_domain }} www.{{ drupal_domain }}"
-    root: "{{ drupal_core_path }}"
+  - server_name: "lelo.vm www.lelo.vm"
+    root: "/var/www/lelovm/lelo"
+    is_php: true
+
+  - server_name: "foreo.vm www.foreo.vm"
+    root: "/var/www/lelovm/foreo"
     is_php: true
 
   - server_name: "adminer.{{ vagrant_hostname }}"
