@@ -176,14 +176,14 @@ installed_extras:
   # - newrelic
   - nodejs
   - pimpmylog
-  # - redis
+  - redis
   - ruby
   # - selenium
   # - solr
   # - upload-progress
   - varnish
-  # - xdebug
-  # - xhprof
+  - xdebug
+  - xhprof
 
 # Add any extra apt or yum packages you would like installed.
 extra_packages:
