@@ -40,7 +40,7 @@ drupalvm_ansible_version_min: '2.2'
 force_ansible_local: true
 
 # The web server software to use. Can be either 'apache' or 'nginx'.
-drupalvm_webserver: nginx
+drupalvm_webserver: apache
 
 # The database system to use. Can be either 'mysql' or 'pgsql'.
 drupalvm_database: mysql
@@ -148,7 +148,11 @@ mysql_users:
     host: "%"
     password: "{{ drupal_db_password }}"
     priv: "lelo_vm.*:ALL"
-    priv: "foreo_vm.*:ALL"
+
+  - name: "{{ drupal_db_user }}"
+    host: "%"
+    password: "{{ drupal_db_password }}"
+    priv: "foreo_vm.*:ALL"   
 
 # PostgreSQL databases and users.
 postgresql_databases:
