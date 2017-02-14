@@ -7,8 +7,8 @@ vagrant_synced_folder_default_type: nfs
 
 # If you need to run multiple instances of Drupal VM, set a unique hostname,
 # machine name, and IP address for each instance.
-vagrant_hostname: lelo.vg
-vagrant_machine_name: lelo-vagrant
+vagrant_hostname: vagrant.one
+vagrant_machine_name: vagrant.one
 vagrant_ip: 192.168.88.70
 
 # Allow Drupal VM to be accessed via a public network interface on your host.
@@ -24,7 +24,7 @@ vagrant_synced_folders:
   # any of the build_* settings are 'true'. By default the folder is set to
   # the drupal-vm folder.
   - local_path: .
-    destination: /var/www/lelovm
+    destination: /var/www/vagrant
     type: nfs
     create: true
 
@@ -66,14 +66,14 @@ apache_vhost_php_fpm_parameters: |
 # multisite deployments, you can point multiple servernames at one documentroot.
 # View the geerlingguy.apache Ansible Role README for more options.
 apache_vhosts:
-  - servername: "lelo.vm"
-    serveralias: "www.lelo.vm"
-    documentroot: "/var/www/lelovm/lelo"
+  - servername: "lelo.vagrant"
+    serveralias: "www.lelo.vagrant"
+    documentroot: "/var/www/vagrant/lelo"
     extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"
 
-  - servername: "foreo.vm"
-    serveralias: "www.foreo.vm"
-    documentroot: "/var/www/lelovm/foreo"
+  - servername: "foreo.vagrant"
+    serveralias: "www.foreo.vagrant"
+    documentroot: "/var/www/vagrant/foreo"
     extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"    
 
   - servername: "adminer.{{ vagrant_hostname }}"
@@ -106,12 +106,12 @@ apache_mods_enabled:
 # here. Set the 'is_php' property for document roots that contain PHP apps like
 # Drupal.
 nginx_hosts:
-  - server_name: "lelo.vm www.lelo.vm"
-    root: "/var/www/lelovm/lelo"
+  - server_name: "lelo.vagrant www.lelo.vagrant"
+    root: "/var/www/vagrant/lelo"
     is_php: true
 
-  - server_name: "foreo.vm www.foreo.vm"
-    root: "/var/www/lelovm/foreo"
+  - server_name: "foreo.vagrant www.foreo.vagrant"
+    root: "/var/www/vagrant/foreo"
     is_php: true
 
   - server_name: "adminer.{{ vagrant_hostname }}"
@@ -135,11 +135,11 @@ nginx_ppa_use: true
 
 # MySQL databases and users.
 mysql_databases:
-  - name: "lelo_vm"
+  - name: "lelo_vagrant"
     encoding: utf8mb4
     collation: utf8mb4_general_ci
 
-  - name: "foreo_vm"
+  - name: "foreo_vagrant"
     encoding: utf8mb4
     collation: utf8mb4_general_ci    
 
