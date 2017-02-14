@@ -147,12 +147,7 @@ mysql_users:
   - name: "{{ drupal_db_user }}"
     host: "%"
     password: "{{ drupal_db_password }}"
-    priv: "lelo_vm.*:ALL"
-
-  - name: "{{ drupal_db_user }}"
-    host: "%"
-    password: "{{ drupal_db_password }}"
-    priv: "foreo_vm.*:ALL"   
+    priv: "*.*:ALL"
 
 # PostgreSQL databases and users.
 postgresql_databases:
