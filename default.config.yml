@@ -9,7 +9,7 @@ vagrant_synced_folder_default_type: nfs
 # machine name, and IP address for each instance.
 vagrant_hostname: vagrant.one
 vagrant_machine_name: vagrant_one
-vagrant_ip: 192.168.88.70
+vagrant_ip: 192.168.88.82
 
 # Allow Drupal VM to be accessed via a public network interface on your host.
 # Vagrant boxes are insecure by default, so be careful. You've been warned!
@@ -247,7 +247,7 @@ mysql_root_password: root
 mysql_slow_query_log_enabled: true
 mysql_slow_query_time: 2
 mysql_wait_timeout: 300
-mysql_innodb_flush_log_at_trx_commit: 2
+mysql_innodb_flush_log_at_trx_commit: 0 #http://dba.stackexchange.com/questions/12611/is-it-safe-to-use-innodb-flush-log-at-trx-commit-2
 mysql_innodb_buffer_pool_size: 2G
 adminer_install_filename: index.php
 
